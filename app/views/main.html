@@ -1,0 +1,79 @@
+<div class="row" ng-show="results.borrowed.length <= 0 && results.reserved.length > 0" style="padding: 20px;">
+    <span style="text-align: center;" class="full-span">No borrowed books.</span>
+    <span style="text-align: center;" class="full-span">Navigate to <a href="/#!/books/">Books</a> to borrow.</span>
+</div>
+<div class="row" ng-show="results.borrowed.length > 0">
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span>Borrowed Books</span>
+        </div>
+    </md-toolbar>
+    <md-table-container style="width: 100%;">
+        <table md-table ng-model="selectedBorrowed">
+            <thead md-head md-order="query.order" md-on-reorder="">
+            <tr md-row>
+                <th md-column md-numeric><span>ID</span></th>
+                <th md-column md-order-by="borrowed.title"><span>Title</span></th>
+                <th md-column md-date><span>Borrowed date</span></th>
+                <th md-column md-date><span>Return date</span></th>                
+                <th md-column>Library name</th>                
+                <th md-column></th>                
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row md-select="item" md-select-id="Book_ID" md-auto-select="false" ng-repeat="item in results.borrowed track by $index">
+                <td md-cell>{{item.Book_ID}}</td>
+                <td md-cell>{{item.title}}</td>
+                <td md-cell>{{item.borrow_date}}</td>
+                <td md-cell>{{item.return_date}}</td>                
+                <td md-cell>{{item.library_name}}</td>                
+                <td md-cell>
+                    <button type="button" class="md-button" ng-click="returnBook($index,item.Book_ID,item.c_id,item.lib_id);">
+                        Return
+                    </button>
+                </td>                
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>  
+</div>
+<div class="row" ng-show="results.reserved.length <= 0 && results.borrowed.length > 0" style="padding: 20px;">
+        <span style="text-align: center;" class="full-span">No reserved books.</span>
+        <span style="text-align: center;" class="full-span">Navigate to <a href="/#!/books/">Books</a> to reserve.</span>
+</div>
+<div class="row" ng-show="results.reserved.length > 0">
+    <div class="dropdown-divider"></div>
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <span>Reserved Books</span>
+        </div>
+    </md-toolbar>
+    <md-table-container style="width: 100%;">
+        <table md-table ng-model="selectedReserved">
+            <thead md-head md-order="query.order" md-on-reorder="">
+            <tr md-row>
+                <th md-column md-numeric><span>ID</span></th>
+                <th md-column md-order-by="reserved.title"><span>Title</span></th>
+                <th md-column md-date><span>Reserved date</span></th>
+                <th md-column><span>Reserved</span></th>                
+                <th md-column>Library name</th>                
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row md-select="item" md-select-id="Book_ID" md-auto-select ng-repeat="item in results.reserved">
+                <td md-cell>{{item.Book_ID}}</td>
+                <td md-cell>{{item.title}}</td>
+                <td md-cell>{{item.reserved_date}}</td>
+                <td md-cell>{{item.reserved}}</td>                
+                <td md-cell>{{item.library_name}}</td>                
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>      
+</div>
+<div class="row" ng-show="results.borrowed.length <= 0 && results.reserved.length <= 0" style="padding: 20px;">
+    <div style="margin-top: 250px;" class="mx-auto">
+        <h1 style="font-weight:300;font-family: 'Open Sans';" class="text-secondary text-center">Welcome Readers!</h1>
+        <h5 style="font-weight:300;font-family: 'Open Sans';" class="text-secondary">To Borrow or Reserve a book head to <a href="/#!/books/">Books view</a></h5>
+    </div>    
+</div>

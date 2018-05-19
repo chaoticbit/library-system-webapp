@@ -1,0 +1,110 @@
+<div class="row" ng-cloak="">
+        <md-toolbar class="md-table-toolbar md-default" ng-show="!selected.length">
+            <div class="md-toolbar-tools">
+                <span>Publisher's List</span>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="getPublishers()">
+                    <md-icon>refresh</md-icon>
+                </md-button>
+                <md-button ng-if="role == 1" class="md-icon-button" data-toggle="modal" data-target="#newPublisherModal">
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-toolbar class="md-table-toolbar md-default" ng-show="selected.length">
+            <div class="md-toolbar-tools">
+                <span><i><u>{{selected[0].p_name}}</u></i> selected</span>
+                <span flex></span>
+                <md-button ng-if="role == 1" class="md-icon-button" ng-click="deletePublisher()">
+                    <md-icon>delete</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-table-container style="width: 100%;">
+            <table ng-if="role == 1" md-table md-row-select ng-model="selected">            
+                <thead md-head md-order="myOrder" md-on-reorder="">
+                <tr md-row>
+                    <th md-column md-order-by="p_name"><span>Publisher name</span></th>
+                    <th md-column><span>Street</span></th>
+                    <th md-column><span>City</span></th>
+                    <th md-column><span>State</span></th>
+                    <th md-column md-numeric><span>zip</span></th>                                        
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row md-select="item" md-select-id="" md-auto-select="false" ng-repeat="item in listOfPublishers | orderBy: myOrder | filter: filter.search | limitTo: query.limit : (query.page - 1) * query.limit track by $index">
+                    <td md-cell>{{item.p_name}}</td>
+                    <td md-cell>{{item.street}}</td>
+                    <td md-cell>{{item.City}}</td>
+                    <td md-cell>{{item.State}}</td>
+                    <td md-cell>{{item.zip}}</td>                                    
+                </tr>
+                </tbody>
+            </table>        
+            <table ng-if="role == 2" md-table>
+                <thead md-head md-order="myOrder" md-on-reorder="">
+                <tr md-row>
+                    <th md-column md-order-by="p_name"><span>Publisher name</span></th>
+                    <th md-column><span>Street</span></th>
+                    <th md-column><span>City</span></th>
+                    <th md-column><span>State</span></th>
+                    <th md-column md-numeric><span>zip</span></th>                                        
+                </tr>
+                </thead>
+                <tbody md-body>
+                <tr md-row md-select="item" md-select-id="" md-auto-select="false" ng-repeat="item in listOfPublishers | orderBy: myOrder | filter: filter.search | limitTo: query.limit : (query.page - 1) * query.limit track by $index">
+                    <td md-cell>{{item.p_name}}</td>
+                    <td md-cell>{{item.street}}</td>
+                    <td md-cell>{{item.City}}</td>
+                    <td md-cell>{{item.State}}</td>
+                    <td md-cell>{{item.zip}}</td>                                    
+                </tr>
+                </tbody>
+            </table>        
+        </md-table-container>  
+        <md-table-pagination style="width: 100%;" md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{listOfPublishers.length}}" md-page-select></md-table-pagination>
+    </div>
+    <div class="modal fade" id="newPublisherModal" tabindex="-1" role="dialog" aria-labelledby="newPublisherModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newPublisherModal">Add Publisher</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form role="form" name="newPublisherForm" novalidate="">
+                    <div class="modal-body">                
+                            <!-- <div class="form-group bmd-form-group label-floating">
+                                <label for="nameInput" class="bmd-label-floating">Name</label>
+                                <input type="text" class="form-control" required ng-model="publisher.p_name" id="nameInput">                            
+                            </div> -->
+                            <md-input-container class="md-block">
+                                <label>Name</label>
+                                <input type="text" ng-model="publisher.p_name" required>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Street</label>
+                                <input type="text" ng-model="publisher.street" required>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>City</label>
+                                <input type="text" ng-model="publisher.city" required>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>State</label>
+                                <input type="text" ng-model="publisher.state" required>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Zip</label>
+                                <input type="text" ng-model="publisher.zip" required>
+                            </md-input-container>                                                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="md-raised md-primary md-button" ng-click="savePublisher()" ng-disabled="newPublisherForm.$invalid">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

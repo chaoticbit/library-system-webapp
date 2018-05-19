@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row" style="padding-bottom: 30px;">
+            <!-- <div class="col-4"></div> -->
+            <div class="login-box bg-primary">
+                <div class="head-label">                    
+                    <span class="go-back-login" style="display: none;">< Go back to Login</span>
+                    <!-- <i class="material-icons go-back-login" style="display: none;">navigate_before</i>                     -->
+                    <h2 class="align-text-bottom">                        
+                        Welcome Back!
+                    </h2>
+                </div>
+                <div class="content">
+                    <form role="form" name="loginform" novalidate="">
+                        <div class="form-group bmd-form-group label-floating">
+                            <label for="usernameInput" class="bmd-label-floating">Username</label>
+                            <input type="text" class="form-control" required ng-model="username" id="usernameInput">                            
+                        </div>
+                        <div class="form-group bmd-form-group">
+                            <label for="passwordInput" class="bmd-label-floating">Password</label>
+                            <input type="password" class="form-control" required ng-model="password" id="passwordInput">                            
+                        </div> 
+                        <div class="hdn-group" style="display: none;">
+                            <div class="form-group bmd-form-group">
+                                <label for="emailInput" class="bmd-label-floating">Email</label>
+                                <input type="email" class="form-control" required ng-model="email" id="emailInput">                            
+                            </div>      
+                            <div class="form-inline">
+                                <div class="form-group bmd-form-group">
+                                    <label for="cityInput" class="bmd-label-floating">City</label>
+                                    <input type="text" class="form-control" required ng-model="city" id="cityInput" style="width: 90%;">                            
+                                </div>                        
+                                <div class="form-group bmd-form-group">
+                                    <label for="stateInput" class="bmd-label-floating">State</label>
+                                    <input type="text" class="form-control" required ng-model="state" id="stateInput">                            
+                                </div>                        
+                            </div>               
+                            <div class="form-inline">
+                                <div class="form-group bmd-form-group">
+                                    <label for="zipInput" class="bmd-label-floating">Zip code</label>
+                                    <input type="text" class="form-control" required minlength="6" maxlength="6" ng-pattern="/^[0-9]*$/" ng-model="zip" id="zipInput" style="width: 90%;">                            
+                                </div>                        
+                                <div class="form-group bmd-form-group">
+                                    <label for="phoneInput" class="bmd-label-floating">Phone</label>
+                                    <input type="text" class="form-control" required minlength="10" maxlength="10" ng-pattern="/^[0-9]*$/" ng-model="contact" id="phoneInput">                            
+                                </div>                        
+                            </div>                               
+                        </div>
+                        <div style="width: 100%;display: block;">
+                            <div style="text-align: left;display: inline-block;margin-top: 15px;">
+                                <a href="#" class="fgt-pwd">Forgot Password?</a>
+                            </div>
+                            <div style="text-align: right;float: right;padding-top: 5px;">
+                                <button class="md-button md-primary md-raised btn-login" ng-disabled="disableLoginCheck()" style="margin-right: 0;" ng-click="validateLogin()">LOGIN</button>
+                                <button class="md-button md-primary md-raised btn-signup" style="display: none;margin-right: 0;" ng-click="validateSignup()" ng-disabled="loginform.$invalid">SIGN UP</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="col-4"></div> -->            
+        </div>   
+        <div class="row signup-parent-row">
+            <div class="login-box bg-white mt-4 toggle-signup" style="cursor: pointer;">
+                <div style="padding: 20px 20px 10px 20px;">
+                    <h5 style="font-weight: 300;" class="text-center">Not yet registered? Sign Up</h5>
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>

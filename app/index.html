@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/css/bootstrap-material-design.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="projectsApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->    
+    <!-- <div style="position: fixed;filter: blur(20px);transform:scale(1.1);top:0;left:0;background: url('https://i.imgur.com/eXyPQAT.jpg') no-repeat top;background-size: cover;z-index:0;display:block;width:100%;height:100%;"></div>     -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2" ng-if="isLoggedIn" ng-cloak=""></div>
+            <div class="col-2 sidebar bg-primary" ng-if="isLoggedIn" ng-cloak="">
+                <!-- <md-icon class="text-white toggle-sidebar" style="margin: 10px 15px 5px 15px;cursor: pointer;">menu</md-icon> -->
+                <ul class="list-group" style="padding-top: 0px;">
+                    <a href="#" class="list-group-item active" aria-tab="home">
+                        <i class="material-icons">home</i>
+                        Home
+                    </a>
+                    <a href="/#!/books/" class="list-group-item" aria-tab="books">
+                        <i class="material-icons">books</i>
+                        Books
+                    </a>  
+                    <a href="/#!/publisher/" class="list-group-item" aria-tab="publisher">
+                        <i class="material-icons">print</i>
+                        Publisher
+                    </a>                      
+                    <a href="/#!/library/" class="list-group-item" aria-tab="library">
+                        <i class="material-icons">local_library</i>
+                        Library
+                    </a>  
+                    <a href="/#!/profile/" class="list-group-item" aria-tab="profile">
+                        <i class="material-icons">person</i>
+                        {{userProfile.u_name.slice(0, 15)}}
+                    </a>                                
+                    <a href="javascript:;" class="list-group-item" data-toggle="modal" data-target="#notificationsModal" aria-tab="notifications">
+                        <i class="material-icons">notifications</i>
+                        Notifications
+                    </a>                                
+                    <a href="#" class="list-group-item" ng-click="logout()">
+                        <i class="material-icons">forward</i>
+                        Logout
+                    </a>                                                                             
+                </ul>                
+            </div>            
+            <!-- <div class="col-2">dsadsa</div> -->
+            <div class="m-content" ng-class="{'col-12': !isLoggedIn, 'col-10': isLoggedIn}">
+                <div class="bg-white showbox" style="display: none;">
+                    <div class="md-loader">
+                        <svg class="circular" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                        </svg>
+                    </div>
+                </div>
+                <div ng-view=""></div>
+                <md-progress-linear md-mode="intermediate" class="top-progress-linear" style="display: none;"></md-progress-linear>
+            </div>
+        </div>                
+    </div> 
+    <div class="modal fade" id="notificationsModal" tabindex="-1" role="dialog" aria-labelledby="notificationsModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationsModal">Notifications</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>                
+                <div class="modal-body">                                        
+                    <div class="md-loader notification-loader" style="display:none;width: 45px;margin: 0px auto;">
+                        <svg class="circular" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                        </svg>
+                    </div>                    
+                    <md-list-group>
+                        <md-list-item ng-if="notifications.length > 0" class="md-2-line" ng-repeat="item in notifications track by $index">
+                                <div class="md-list-item-text" layout="column">
+                                    <p><b>{{item.title}}</b> is available.</p>
+                                    <p>{{item.message}}</p>                                    
+                                </div>
+                                <md-button class="md-secondary md-primary md-raised">
+                                    Borrow
+                                </md-button>
+                        </md-list-item>                        
+                    </md-list>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>                
+                </div>             -->
+            </div>
+        </div>
+    </div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/popper.js/dist/umd/popper.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
+    <script src="bower_components/bootstrap-material-design/js/bootstrap-material-design.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->        
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/books.js"></script>
+        <script src="scripts/controllers/publisher.js"></script>
+        <script src="scripts/controllers/library.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/profile.js"></script>
+        <!-- endbuild -->    
+</body>
+</html>
